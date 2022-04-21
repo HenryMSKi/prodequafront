@@ -153,7 +153,7 @@ export default {
     async iniciarSesión(user) {
       console.log(user);
       try {
-        const resp = await this.$axios.$post("http://apiprodequa.mskdevmusic.com/auth", {
+        const resp = await this.$axios.$post("https://prodequaapi.herokuapp.com/auth", {
           correoUsuario: user.correoUsuario,
           passwordUsuario: user.passwordUsuario,
         });

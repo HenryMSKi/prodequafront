@@ -1,16 +1,256 @@
 <template>
   <div>
-        <h1>Index Users</h1>
-        <p>{{ $route.params }}</p>
+        <!-- <h1>Index Users</h1>
+        <p>{{ $route.params }}</p> -->
+        <div class="min-h-full justify-center py-16 px-12 sm:px-10 lg:px-24">
+    <div class="">
+      <h3 class="text-lg font-medium leading-6 text-gray-900">
+        Registrar nuevo usuario
+      </h3>
+      <p class="mt-1 text-sm text-gray-600">
+        Ingresar todos los datos solicitados.
+      </p>
+    </div>
+    <div class="shadow overflow-hidden sm:rounded-md ">
+      <div class="px-4 py-5 bg-gray-50 sm:p-6">
+        <div class="grid grid-cols-6 gap-10">
+          <div class="col-span-6 sm:col-span-3">
+            <label
+              for="first-name"
+              class="block text-sm font-medium text-gray-700"
+              >Nombre</label
+            >
+            <input
+              type="text"
+              name="first-name"
+              id="first-name"
+              autocomplete="given-name"
+              class="
+                mt-1
+                focus:ring-indigo-500 focus:border-indigo-500
+                block
+                w-full
+                shadow-sm
+                sm:text-sm
+                border-gray-300
+                rounded-md
+                py-2
+                px-3
+              "
+              v-model="userPost.nombreUsuario"
+            />
+          </div>
+
+          <div class="col-span-6 sm:col-span-3">
+            <label
+              for="last-name"
+              class="block text-sm font-medium text-gray-700"
+              >Apellido</label
+            >
+            <input
+              type="text"
+              name="last-name"
+              id="last-name"
+              autocomplete="family-name"
+              class="
+                mt-1
+                focus:ring-indigo-500 focus:border-indigo-500
+                block
+                w-full
+                shadow-sm
+                sm:text-sm
+                border-gray-300
+                rounded-md
+                py-2
+                px-3
+              "
+              v-model="userPost.apellidoUsuario"
+            />
+          </div>
+
+          <div class="col-span-6 sm:col-span-3">
+            <label
+              for="email-address"
+              class="block text-sm font-medium text-gray-700"
+              >Correo</label
+            >
+            <input
+              type="text"
+              name="email-address"
+              id="email-address"
+              autocomplete="email"
+              class="
+                mt-1
+                focus:ring-indigo-500 focus:border-indigo-500
+                block
+                w-full
+                shadow-sm
+                sm:text-sm
+                border-gray-300
+                rounded-md
+                py-2
+                px-3
+              "
+              v-model="userPost.correoUsuario"
+            />
+          </div>
+
+          <div class="col-span-6 sm:col-span-3">
+            <label
+              for="street-address"
+              class="block text-sm font-medium text-gray-700"
+              >Clave Usuario</label
+            >
+            <input
+              type="password"
+              name="street-address"
+              id="street-address"
+              autocomplete="street-address"
+              class="
+                mt-1
+                focus:ring-indigo-500 focus:border-indigo-500
+                block
+                w-full
+                shadow-sm
+                sm:text-sm
+                border-gray-300
+                rounded-md
+                py-2
+                px-3
+              "
+              v-model="userPost.passwordUsuario"
+            />
+          </div>
+
+          <div class="col-span-6 sm:col-span-3">
+            <label for="country" class="block text-sm font-medium text-gray-700"
+              >Rol</label
+            >
+            <select
+              id="country"
+              name="country"
+              autocomplete="country-name"
+              class="
+                mt-1
+                block
+                w-full
+                py-2
+                px-3
+                border border-gray-300
+                bg-white
+                rounded-md
+                shadow-sm
+                focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
+                sm:text-sm
+              "
+              v-model="select"
+            >
+              <option value="1">Administrador de Sistema</option>
+              <option value="2">Usuario General</option>
+            </select>
+          </div>
+
+          <div class="col-span-6 sm:col-span-3">
+            <label for="country" class="block text-sm font-medium text-gray-700"
+              >Rol</label
+            >
+            <select
+              id="country"
+              name="country"
+              autocomplete="country-name"
+              class="
+                mt-1
+                block
+                w-full
+                py-2
+                px-3
+                border border-gray-300
+                bg-white
+                rounded-md
+                shadow-sm
+                focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
+                sm:text-sm
+              "
+              v-model="selectEstado"
+            >
+              <option value="0">Inhabilitado</option>
+              <option value="1">Habilitado</option>
+            </select>
+          </div>
+
+          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+            <button
+              class="
+                inline-flex
+                justify-center
+                py-2
+                px-4
+                border border-transparent
+                shadow-sm
+                text-sm
+                font-medium
+                rounded-md
+                text-white
+                bg-indigo-600
+                hover:bg-indigo-700
+                focus:outline-none
+                focus:ring-2
+                focus:ring-offset-2
+                focus:ring-indigo-500
+              "
+              @click="guardarUsuario(userPost, select, selectEstado)"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 
 <script>
 export default {
   validate(ruta){
-    console.log(ruta.params.id)
+    /* console.log(ruta.params.id) */
     return /^\d+$/.test(ruta.params.id)
-  }
+  },
+  async asyncData(){
+  },
+  data() {
+    return {
+      userPost: {
+        nombreUsuario: JSON.parse(localStorage.getItem("t_us_up")).nombreUsuario,
+        apellidoUsuario: JSON.parse(localStorage.getItem("t_us_up")).apellidoUsuario,
+        correoUsuario: JSON.parse(localStorage.getItem("t_us_up")).correoUsuario,
+      },
+      select: JSON.parse(localStorage.getItem("t_us_up")).idRol,
+      selectEstado: JSON.parse(localStorage.getItem("t_us_up")).idEstadousuario,
+    };
+  },
+  methods: {
+    async guardarUsuario(userPost, select, selectEstado) {
+      console.log(selectEstado);
+      console.log(userPost.nombreUsuario);
+      try {
+        const token = localStorage.getItem("t_us_con");
+        this.$axios.setHeader("Authorization", "Bearer " + token);
+        const resp = await this.$axios.$put("https://prodequaapi.herokuapp.com/"+this.$route.params.id, {
+          nombreUsuario: userPost.nombreUsuario,
+          correoUsuario: userPost.correoUsuario,
+          apellidoUsuario: userPost.apellidoUsuario,
+          passwordUsuario: userPost.passwordUsuario,
+          idRol: select,
+          idEstadousuario: selectEstado
+        });
+        console.log(resp);
+        this.$router.push("/users");
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    },
+  },
 };
 </script>
 

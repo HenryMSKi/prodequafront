@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-full justify-center py-12 px-2 sm:px-6 lg:px-8">
+  <div class="min-h-full justify-center py-16 px-12 sm:px-10 lg:px-24">
     <div class="">
       <h3 class="text-lg font-medium leading-6 text-gray-900">
         Registrar nuevo usuario
@@ -8,8 +8,8 @@
         Ingresar todos los datos solicitados.
       </p>
     </div>
-    <div class="shadow overflow-hidden sm:rounded-md">
-      <div class="px-4 py-5 bg-white sm:p-6">
+    <div class="shadow overflow-hidden sm:rounded-md ">
+      <div class="px-4 py-5 bg-gray-50 sm:p-6">
         <div class="grid grid-cols-6 gap-10">
           <div class="col-span-6 sm:col-span-3">
             <label
@@ -31,6 +31,8 @@
                 sm:text-sm
                 border-gray-300
                 rounded-md
+                py-2
+                px-3
               "
               v-model="userPost.nombreUsuario"
             />
@@ -56,12 +58,14 @@
                 sm:text-sm
                 border-gray-300
                 rounded-md
+                py-2
+                px-3
               "
               v-model="userPost.apellidoUsuario"
             />
           </div>
 
-          <div class="col-span-6 sm:col-span-4">
+          <div class="col-span-6 sm:col-span-3">
             <label
               for="email-address"
               class="block text-sm font-medium text-gray-700"
@@ -81,8 +85,37 @@
                 sm:text-sm
                 border-gray-300
                 rounded-md
+                py-2
+                px-3
               "
               v-model="userPost.correoUsuario"
+            />
+          </div>
+
+          <div class="col-span-6 sm:col-span-3">
+            <label
+              for="street-address"
+              class="block text-sm font-medium text-gray-700"
+              >Clave Usuario</label
+            >
+            <input
+              type="password"
+              name="street-address"
+              id="street-address"
+              autocomplete="street-address"
+              class="
+                mt-1
+                focus:ring-indigo-500 focus:border-indigo-500
+                block
+                w-full
+                shadow-sm
+                sm:text-sm
+                border-gray-300
+                rounded-md
+                py-2
+                px-3
+              "
+              v-model="userPost.passwordUsuario"
             />
           </div>
 
@@ -112,31 +145,6 @@
               <option value="1">Administrador de Sistema</option>
               <option value="2">Usuario General</option>
             </select>
-          </div>
-
-          <div class="col-span-6">
-            <label
-              for="street-address"
-              class="block text-sm font-medium text-gray-700"
-              >Clave Usuario</label
-            >
-            <input
-              type="password"
-              name="street-address"
-              id="street-address"
-              autocomplete="street-address"
-              class="
-                mt-1
-                focus:ring-indigo-500 focus:border-indigo-500
-                block
-                w-full
-                shadow-sm
-                sm:text-sm
-                border-gray-300
-                rounded-md
-              "
-              v-model="userPost.passwordUsuario"
-            />
           </div>
 
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -185,7 +193,7 @@ export default {
       try {
         const token = localStorage.getItem("t_us_con");
         this.$axios.setHeader("Authorization", "Bearer " + token);
-        const resp = await this.$axios.$post("http://apiprodequa.mskdevmusic.com/", {
+        const resp = await this.$axios.$post("https://prodequaapi.herokuapp.com/", {
           nombreUsuario: userPost.nombreUsuario,
           correoUsuario: userPost.correoUsuario,
           apellidoUsuario: userPost.apellidoUsuario,

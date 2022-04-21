@@ -18,8 +18,9 @@
                 focus:ring-inset
                 focus:ring-white
               "
+              @click="clickRegistrarUsuarios()"
             >
-              <nuxt-link to="/users/register"> Registrar usuario </nuxt-link>
+            Registrar usuario 
             </button>
             &nbsp;
 
@@ -37,8 +38,9 @@
                 focus:ring-inset
                 focus:ring-white
               "
+              @click="clickListarUsuario()"
             >
-              <nuxt-link to="/users"> Lista de usuarios </nuxt-link>
+               Lista de usuarios
             </button>
             &nbsp;
 
@@ -79,6 +81,12 @@ export default {
       localStorage.removeItem("t_us_con")
       this.$router.push("/");
     },
+    clickRegistrarUsuarios(){
+      this.$router.push("/users/register")
+    },
+    clickListarUsuario(){
+      this.$router.push("/users")
+    }
   },
 };
 </script>

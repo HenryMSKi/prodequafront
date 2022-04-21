@@ -98,10 +98,10 @@
                   >
                 </div>
               </th>
-              <th scope="col" class="px-6 py-3">Product name</th>
-              <th scope="col" class="px-6 py-3">Color</th>
-              <th scope="col" class="px-6 py-3">Category</th>
-              <th scope="col" class="px-6 py-3">Price</th>
+              <th scope="col" class="px-6 py-3">ID</th>
+              <th scope="col" class="px-6 py-3">Nombre</th>
+              <th scope="col" class="px-6 py-3">Apellido</th>
+              <th scope="col" class="px-6 py-3">Correo</th>
               <th scope="col" class="px-6 py-3">
                 <span class="sr-only">Edit</span>
               </th>
@@ -135,16 +135,16 @@
                 </div>
               </td>
               <td class="px-6 py-4 font-medium">
-                {{ user.id }}
+                {{ user.idUsuario }}
               </td>
               <td scope="row" class="font-medium whitespace-nowrap px-6 py-4">
-                {{ user.name }}
+                {{ user.nombreUsuario }}
               </td>
               <td scope="row" class="font-medium whitespace-nowrap px-6 py-4">
-                {{ user.name }}
+                {{ user.apellidoUsuario }}
               </td>
               <td scope="row" class="font-medium whitespace-nowrap px-6 py-4">
-                {{ user.name }}
+                {{ user.correoUsuario }}
               </td>
               <td class="px-6 py-4 text-right">
                 <a
@@ -155,7 +155,8 @@
                     text-indigo-700
                     hover:text-white
                   "
-                  ><nuxt-link :to="'users/' + user.id"> Editar </nuxt-link></a
+                  @click="clickUser(user)"
+                  > Editar </a
                 >
               </td>
             </tr>
@@ -168,27 +169,34 @@
 
 <script>
 export default {
+  methods:{
+    clickUser(us){
+      localStorage.setItem('t_us_up', JSON.stringify(us));
+      this.$router.push("/users/"+us.idUsuario);
+    }
+  },
   data() {
     return {
-      users: [
-        {
-          id: "1",
-          name: "Luis",
-        },
-      ],
+      users: [],
     };
   },
-  async asyncData({ $axios }) {
+  async asyncData({$axios}) {
     try {
       const token = localStorage.getItem('t_us_con')
-      this.$axios.setHeader('Authorization', 'Bearer '+token)
-      const response = await $axios.$get("http://apiprodequa.mskdevmusic.com/");
-      console.log(response);
-      /* return { ip }; */
+      $axios.setHeader('Authorization', 'Bearer '+token)
+      const response = await $axios.$get("https://prodequaapi.herokuapp.com/");
+      console.log(response.content);
+
+
+      /* users === response.content */
+      return { users: response.content};
     } catch (error) {
       console.log(error.response);
     }
   },
+  computed:{
+    
+  }
 };
 </script>
 
